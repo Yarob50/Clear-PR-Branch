@@ -1,0 +1,22 @@
+name: "Clear PR Branch"
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+
+jobs:
+  clear_branch_job:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: checking the pr to clear
+        id: check_pr
+        uses: ./.github/actions/clearBranchAction
+        with: 
+          access_token: ${{ secrets.github_access_token }} 
+          excluded_branches: "fw,fr,fn"
+
+      - name: finishing
+        run: echo "Done :)"
