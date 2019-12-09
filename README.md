@@ -15,5 +15,24 @@ A github action for removing your branches after they are merged to the other br
 
 ***Note:*** The master branch is excluded by default since it should never be removed
 
-## Example of usage
-todo
+## Example of usage 
+**workflow.yml**
+```
+name: "Clear PR Branch"
+   on:
+     pull_request:
+       types: [closed]
+       branches:
+         - master
+   
+   jobs:
+     clear_branch_job:
+       runs-on: [ubuntu-latest]
+       steps:
+         - name: clearing the branch
+           id: check_pr
+           uses: Yarob50/Clear-PR-Branch@master
+           with: 
+             access_token: ${{ secrets.github_access_token }} 
+             excluded_branches: "[dev,featureX]"
+             ```
